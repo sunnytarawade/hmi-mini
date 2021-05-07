@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
+import  { Route, Switch, BrowserRouter } from 'react-router-dom';
+import Home  from './pages/Home';
+import Ats from './pages/ATS';
+import CurbForm from './pages/CurbForm';
+import Treatment from './pages/Treatment';
+import {useState} from 'react';
 function App() {
+
+  const [state, setState] = useState({
+    curbScore : 0,
+    atsScore : 0,
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   <BrowserRouter>
+    <Switch>
+   
+    <Route exact path='/' component={Home}/>
+    <Route exact path='/ats' render={()=><Ats {...state} setState={setState}/>} />
+    <Route exact path='/curb-form' render={()=><CurbForm {...state} setState={setState}/>}/>
+    <Route exact path='/treatment' render={()=><Treatment {...state} setState={setState}/>}/>
+    </Switch>
+   
+   </BrowserRouter>
+    );
 }
 
 export default App;
